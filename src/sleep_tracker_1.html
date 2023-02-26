@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .header {text-align:center; border-style:groove}
+      .subtitle {border-style: double}
+      img {
+        border: 1px solid rgb(9, 9, 9);
+        border-radius: 4px;
+        padding: 5px;
+        width: 350px;
+      }
+    </style>
+    <body style="background-color:rgba(211, 216, 169, 0.3)";
+          topmargin=30px; leftmargin=50px; rightmargin=50px></body>
+    <title>Sleep Tracker</title>
+    <script>
+      var recommendedSleep = 49;
+      var runningTotal = 0;
+
+
+      function addSleep() {
+        var sleepTable = document.getElementById("sleepTable");
+        var sleepInputs = sleepTable.getElementsByTagName("input");
+        var total = 0;
+        for (var i = 0; i < sleepInputs.length; i++) {
+          if (sleepInputs[i].value < 0) {
+            alert("Please enter a non-negative amount of sleep. Thanks!");
+          }
+          if (sleepInputs[i].value >= 0) {
+            total += parseFloat(sleepInputs[i].value) || 0;
+          }
+        }
+        runningTotal = total;
+        var remaining = recommendedSleep - runningTotal;
+        if (remaining < 0) {
+          remaining = 0;
+        } 
+        
+        document.getElementById("runningTotal").innerHTML = runningTotal.toFixed(1);
+        document.getElementById("remaining").innerHTML = remaining.toFixed(1);
+      }
+
+
+      function reset() {
+        var sleepTable = document.getElementById("sleepTable");
+        var sleepInputs = sleepTable.getElementsByTagName("input");
+        for (var i = 0; i < sleepInputs.length; i++) {
+          sleepInputs[i].value = "";
+        }
+        runningTotal = 0;
+        var remaining = recommendedSleep - runningTotal;
+        document.getElementById("runningTotal").innerHTML = runningTotal.toFixed(1);
+        document.getElementById("remaining").innerHTML = remaining.toFixed(1);
+      }
+    </script>
+  </head>
+  <body>
+    <h1 class=header>Sleep Tracker</h1>
+    <h3 class=header>The recommended amount of sleep for college students is 7-9 hours!</h3>
+    <div style="width: 50%; float:left">
+      <h4>
+        Please enter the number of hours you slept each day of the week:
+      </h4>
+      <table id="sleepTable">
+        <tr>
+          <th class=subtitle>Day</th>
+          <th class=subtitle>Hours of Sleep</th>
+        </tr>
+        <tr>
+          <td>Monday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Tuesday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Wednesday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Thursday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Friday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Saturday</td>
+          <td><input type="number"></td>
+        </tr>
+        <tr>
+          <td>Sunday</td>
+          <td><input type="number"></td>
+        </tr>
+      </table>
+      <br>
+      <button onclick="addSleep();dailyAverage()">Add Sleep</button>
+      <button onclick="reset()">Reset</button>
+      <p>
+        Running Total: <span id="runningTotal">0.0</span> hours
+        <br>
+        Remaining: <span id="remaining">49.0</span> hours
+      </p>
+      <a href="/Users/sambarbeau/HackIllinois_beginner/src/index.html"><button>Back to Health Center</button></a>
+    </div>
+    <div><img class=picture src="/Users/sambarbeau/HackIllinois_beginner/images/get_sleep.jpg"></div>
+  </body>
+</html>
